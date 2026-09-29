@@ -16,12 +16,18 @@ preparación, porciones, ingredientes y pasos.
 
 ## Features previstas y estado actual
 
-| Feature                                             | Estado         |
-| ---------------------------------------------------- | -------------- |
-| Listado de recetas (Home) con cards                  | ✅ Hecho       |
+| Feature                                                | Estado         |
+| ------------------------------------------------------ | -------------- |
+| Listado de recetas con cards                           | ✅ Hecho       |
 | Datos de recetas centralizados (nombre, ingredientes, pasos, etc.) | ✅ Hecho |
-| Header con logo y nombre de la app                    | ✅ Hecho       |
-| Pantalla de detalle de receta (ingredientes y pasos completos) | 🔜 Pendiente |
-| Navegación entre pantallas (Home → Detalle)           | 🔜 Pendiente   |
-| Buscador / filtro por categoría o dificultad          | 🔜 Pendiente   |
-| Alta/edición de recetas desde la app                  | 🔜 Pendiente   |
+| Header con logo y nombre de la app                     | ✅ Hecho       |
+| Pantalla de detalle de receta (ingredientes y pasos completos) | ✅ Hecho |
+| Navegación entre pantallas (Home → Detalle)            | ✅ Hecho       |
+| Buscador / filtro por categoría o dificultad           | ✅ Hecho       |
+| Navegación con `<Link>`                                | ✅ Hecho       |
+| Íconos vectoriales (`@expo/vector-icons`)              | ✅ Hecho       |
+| Favoritos con actualización inmutable de estado        | ✅ Hecho       |
+| Consumo de API externa (TheMealDB)                     | ✅ Hecho       |
+| Toggle de tema claro/oscuro                            | ✅ Hecho       |
+| Alta/edición de recetas desde la app                   | 🔜 Pendiente   |
+
