@@ -51,7 +51,6 @@ function adaptarReceta(meal) {
         autor: "TheMealDB",
         ingredientes,
         pasos: extraerPasos(meal.strInstructions),
-        favorito: false,
     };
 }
 

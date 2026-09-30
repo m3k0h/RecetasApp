@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
     ActivityIndicator,
     FlatList,
@@ -22,35 +23,18 @@ function ListaDeRecetas() {
     const insets = useSafeAreaInsets();
     const theme = useTheme();
     const [busqueda, setBusqueda] = useState("");
-    const [recetas, setRecetas] = useState([]);
-    const [cargandoApi, setCargandoApi] = useState(true);
+    const [favoritoIds, setFavoritoIds] = useState([]);
 
-    useEffect(() => {
-        let cancelado = false;
-
-        obtenerRecetasDeTheMealDB()
-            .then((recetasApi) => {
-                if (!cancelado) {
-                    setRecetas((prev) => [...prev, ...recetasApi]);
-                }
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                if (!cancelado) setCargandoApi(false);
-            });
-
-        return () => {
-            cancelado = true;
-        };
-    }, []);
+    const { data: recetas = [], isLoading: cargandoApi } = useQuery({
+        queryKey: ["recetas"],
+        queryFn: () => obtenerRecetasDeTheMealDB(),
+    });
 
     const toggleFavorito = (id) => {
-        setRecetas((prev) =>
-            prev.map((receta) =>
-                receta.id === id
-                    ? { ...receta, favorito: !receta.favorito }
-                    : receta,
-            ),
+        setFavoritoIds((prev) =>
+            prev.includes(id)
+                ? prev.filter((favId) => favId !== id)
+                : [...prev, id],
         );
     };
 
@@ -72,38 +56,41 @@ function ListaDeRecetas() {
             style={{ backgroundColor: theme.colors.background }}
             data={recetasFiltradas}
             keyExtractor={(receta) => receta.id}
-            renderItem={({ item }) => (
-                <View>
-                    <Link
-                        href={{
-                            pathname: "/receta/[id]",
-                            params: {
-                                id: item.id,
-                                receta: JSON.stringify(item),
-                            },
-                        }}
-                        asChild
-                    >
-                        <Pressable>
-                            <RecetaCard {...item} />
+            renderItem={({ item }) => {
+                const esFavorito = favoritoIds.includes(item.id);
+                return (
+                    <View>
+                        <Link
+                            href={{
+                                pathname: "/receta/[id]",
+                                params: {
+                                    id: item.id,
+                                    receta: JSON.stringify(item),
+                                },
+                            }}
+                            asChild
+                        >
+                            <Pressable>
+                                <RecetaCard {...item} />
+                            </Pressable>
+                        </Link>
+                        <Pressable
+                            onPress={() => toggleFavorito(item.id)}
+                            className="absolute right-8 top-4 h-9 w-9 items-center justify-center rounded-full shadow-sm shadow-marron-900/20"
+                            style={{
+                                backgroundColor: theme.colors.surface,
+                                opacity: 0.9,
+                            }}
+                        >
+                            <Ionicons
+                                name={esFavorito ? "heart" : "heart-outline"}
+                                size={18}
+                                color={theme.colors.textMuted}
+                            />
                         </Pressable>
-                    </Link>
-                    <Pressable
-                        onPress={() => toggleFavorito(item.id)}
-                        className="absolute right-8 top-4 h-9 w-9 items-center justify-center rounded-full shadow-sm shadow-marron-900/20"
-                        style={{
-                            backgroundColor: theme.colors.surface,
-                            opacity: 0.9,
-                        }}
-                    >
-                        <Ionicons
-                            name={item.favorito ? "heart" : "heart-outline"}
-                            size={18}
-                            color={theme.colors.textMuted}
-                        />
-                    </Pressable>
-                </View>
-            )}
+                    </View>
+                );
+            }}
             ListHeaderComponent={
                 <>
                     <Header />

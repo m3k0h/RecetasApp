@@ -27,7 +27,12 @@ preparación, porciones, ingredientes y pasos.
 | Navegación con `<Link>`                                | ✅ Hecho       |
 | Íconos vectoriales (`@expo/vector-icons`)              | ✅ Hecho       |
 | Favoritos con actualización inmutable de estado        | ✅ Hecho       |
-| Consumo de API externa (TheMealDB)                     | ✅ Hecho       |
+| Consumo de API externa (TheMealDB con TanStack Query)  | ✅ Hecho       |
 | Toggle de tema claro/oscuro                            | ✅ Hecho       |
 | Alta/edición de recetas desde la app                   | 🔜 Pendiente   |
+| Scroll infinito (cargar más recetas al bajar)          | 🔜 Pendiente   |
+| Más filtros (por categoría, tiempo, etc.)              | 🔜 Pendiente   |
+| Pantalla de recetas favoritas                          | 🔜 Pendiente   |
+| Persistir favoritos entre sesiones                     | 🔜 Pendiente   |
+| Receta al azar                                         | 🔜 Pendiente   |
 
